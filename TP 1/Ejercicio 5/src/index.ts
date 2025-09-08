@@ -1,0 +1,26 @@
+import { Auto, Moto } from "./models";
+
+const miMoto = new Moto("Yamaha", "La primera", 14, 4.5, 689);
+console.log("Moto creada:", miMoto);
+miMoto.acelerar();
+console.log("Moto acelerada:", miMoto);
+miMoto.frenar();
+console.log("Moto frenada:", miMoto);
+const miAuto = new Auto("Tesla", "Model S", 75, 15);
+console.log("Auto creado:", miAuto);
+miAuto.acelerar();
+console.log("Auto acelerado:", miAuto);
+console.log("Carga del auto después de acelerar:", miAuto.getCarga());
+miAuto.frenar();
+console.log("Auto frenado:", miAuto);
+console.log("Carga del auto después de frenar:", miAuto.getCarga());
+miAuto.descargar();
+console.log("Auto descargado:", miAuto);
+console.log("¿El auto está cargado?", miAuto.estaCargado());
+miAuto.cargar();
+console.log("Auto cargado:", miAuto);
+console.log("¿El auto está cargado?", miAuto.estaCargado());
+console.log("Carga del auto después de cargar:", miAuto.getCarga());
+miAuto.setCarga(50);
+console.log("Carga del auto después de setear a 50:", miAuto.getCarga());
+console.log("Estado final del auto:", miAuto);
