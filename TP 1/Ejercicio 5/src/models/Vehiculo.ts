@@ -20,6 +20,6 @@ export abstract class Vehiculo {
     this.velocidad = 0;
   }
 
-  public acelerar(): void {}
-  public frenar(): void {}
+  public abstract acelerar(): void;
+  public abstract frenar(): void;
 }

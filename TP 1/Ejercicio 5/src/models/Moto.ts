@@ -15,10 +15,15 @@ export class Moto extends Vehiculo {
   }
 
   public acelerar(): void {
-    super.acelerar();
+    if (this.combustible > 0) {
+      this.velocidad += 10;
+      this.combustible = Math.max(0, this.combustible - this.consumo);
+    } else {
+      console.log("No hay combustible suficiente");
+    }
   }
 
   public frenar(): void {
-    super.frenar();
+    this.velocidad = Math.max(0, this.velocidad - 5);
   }
 }

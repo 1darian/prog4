@@ -14,9 +14,6 @@ export class Auto extends Vehiculo implements IElectrico {
     this.carga = 100;
   }
 
-  public cargarEnergia(cantidad: number): void {
-    this.carga += cantidad;
-  }
   public cargar(): void {
     this.carga = 100;
   }
@@ -28,21 +25,26 @@ export class Auto extends Vehiculo implements IElectrico {
   public estaCargado(): boolean {
     return this.carga > 0;
   }
+
   public getCarga(): number {
     return this.carga;
   }
 
   public setCarga(carga: number): void {
-    this.carga = carga;
+    this.carga = Math.max(0, Math.min(100, carga));
+  }
+
+  private ajustarCarga(cantidad: number): void {
+    this.carga = Math.max(0, Math.min(100, this.carga + cantidad));
   }
 
   public acelerar(): void {
-    super.acelerar();
-    this.cargarEnergia(-1);
+    this.velocidad += 5;
+    this.ajustarCarga(-1);
   }
 
   public frenar(): void {
-    super.frenar();
-    this.cargarEnergia(1);
+    this.velocidad = Math.max(0, this.velocidad - 5);
+    this.ajustarCarga(1);
   }
 }

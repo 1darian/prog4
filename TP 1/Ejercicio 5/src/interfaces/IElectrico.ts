@@ -1,7 +1,7 @@
 export interface IElectrico {
-  cargar(): void;
-  descargar(): void;
-  estaCargado(): boolean;
   getCarga(): number;
   setCarga(carga: number): void;
+  estaCargado(): boolean;
+  cargar(): void; // carga completa
+  descargar(): void; // vacia
 }
