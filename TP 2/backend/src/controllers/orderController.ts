@@ -46,8 +46,8 @@ export async function createOrder(req: Request, res: Response) {
     
     const { items, address } = orderData;
     const result = await pool.query(
-      "INSERT INTO orders (items, address, status) VALUES ($1, $2, $3) RETURNING *",
-      [JSON.stringify(items), address, "pendiente"]
+      "INSERT INTO orders (items, address, status, created_at) VALUES ($1, $2, $3, $4) RETURNING *",
+      [JSON.stringify(items), address, "pendiente", new Date()]
     );
     
     res.status(201).json({ message: "Pedido creado", order: result.rows[0] });
