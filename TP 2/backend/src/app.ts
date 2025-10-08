@@ -1,37 +1,37 @@
-import express from "express";
-import ordersRouter from "./routes/orders";
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import orderRoutes from './routes/orderRoutes';
+import { initializeDatabase } from './config/database';
 
-export function makeApp() {
-  const app = express();
+// Cargar variables de entorno
+dotenv.config();
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Middlewares
+app.use(cors());
+app.use(express.json());
+
+// Rutas
+app.use('/api', orderRoutes);
+
+// Ruta de prueba
+app.get('/', (req, res) => {
+  res.send('API de Pizzería funcionando correctamente');
+});
+
+// Iniciar servidor
+app.listen(PORT, async () => {
+  console.log(`Servidor corriendo en el puerto ${PORT}`);
   
-  // Middleware para parsear JSON
-  app.use(express.json());
-  
-  // Middleware para CORS
-  app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-    
-    if (req.method === "OPTIONS") {
-      return res.status(200).end();
-    }
-    
-    next();
-  });
-  
-  // Rutas
-  app.use("/api/orders", ordersRouter);
-  
-  // Ruta de prueba para verificar que la API está funcionando
-  app.get("/api/health", (req, res) => {
-    res.json({ status: "ok", message: "API funcionando correctamente" });
-  });
-  
-  // Manejo de rutas no encontradas
-  app.use((req, res) => {
-    res.status(404).json({ error: "Ruta no encontrada" });
-  });
-  
-  return app;
-}
+  // Inicializar la base de datos
+  try {
+    await initializeDatabase();
+  } catch (error) {
+    console.error('Error al inicializar la base de datos:', error);
+  }
+});
+
+export default app;

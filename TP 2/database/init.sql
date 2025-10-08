@@ -1,7 +1,0 @@
-CREATE TABLE IF NOT EXISTS orders (
-  id SERIAL PRIMARY KEY,
-  items JSONB NOT NULL,
-  address TEXT NOT NULL,
-  status TEXT DEFAULT 'pendiente',
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
