@@ -1,5 +1,4 @@
 import express from 'express';
-import cors from 'cors';
 import dotenv from 'dotenv';
 import orderRoutes from './routes/orderRoutes';
 import { initializeDatabase } from './config/database';
@@ -10,8 +9,7 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middlewares
-app.use(cors());
+// Middleware
 app.use(express.json());
 
 // Rutas
