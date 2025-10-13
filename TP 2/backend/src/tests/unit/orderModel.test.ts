@@ -17,7 +17,7 @@ describe('Order Model', () => {
       
       // Base price for M + 2 toppings
       const expectedPrice = 10.99 + (2 * 0.99);
-      expect(calculateOrderPrice(items)).toBeCloseTo(expectedPrice);
+      expect(calculateOrderPrice(items as [{ size: PizzaSize; toppings: string[]; quantity: number }, ...{ size: PizzaSize; toppings: string[]; quantity: number }[]])).toBeCloseTo(expectedPrice);
     });
     
     it('should calculate correct price for multiple pizzas', () => {
@@ -36,11 +36,11 @@ describe('Order Model', () => {
       
       // 2 * (S + 1 topping) + (L + 5 toppings)
       const expectedPrice = 2 * (8.99 + 0.99) + (12.99 + 5 * 0.99);
-      expect(calculateOrderPrice(items)).toBeCloseTo(expectedPrice);
+      expect(calculateOrderPrice(items as [{ size: PizzaSize; toppings: string[]; quantity: number }, ...{ size: PizzaSize; toppings: string[]; quantity: number }[]])).toBeCloseTo(expectedPrice);
     });
     
     it('should return 0 for empty items array', () => {
-      expect(calculateOrderPrice([])).toBe(0);
+      expect(calculateOrderPrice([] as any)).toBe(0);
     });
   });
   

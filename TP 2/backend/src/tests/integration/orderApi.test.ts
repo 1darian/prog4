@@ -3,6 +3,7 @@ import app from '../../app';
 import { PizzaSize, OrderStatus } from '../../models/orderModel';
 import pool from '../../config/database';
 
+
 // Mock para evitar la conexión real a la base de datos en tests
 jest.mock('../../config/database', () => {
   const mockPool = {

@@ -2,19 +2,13 @@
 
 Este proyecto implementa una API REST para gestionar pedidos de una pizzería, con validaciones, reglas de negocio y tests.
 
-## Estructura del Proyecto
-
-El proyecto está dividido en tres componentes principales:
-
-- **Backend**: API REST desarrollada con Express y TypeScript
-- **Database**: Base de datos PostgreSQL en Docker
-- **Frontend**: (No implementado en este mini-proyecto)
-
 ## Requisitos
 
 - Node.js (v14 o superior)
 - Docker y Docker Compose
 - Postman (para probar la API)
+- Jest
+
 
 ## Guía Paso a Paso para Configurar y Ejecutar el Proyecto
 
@@ -23,8 +17,8 @@ El proyecto está dividido en tres componentes principales:
 Si estás trabajando desde un repositorio Git:
 
 ```bash
-git clone <url-del-repositorio>
-cd prog4/TP\ 2
+git clone https://github.com/1darian/prog4.git
+cd prog4/TP2
 ```
 
 ### 2. Configurar y Levantar la Base de Datos
@@ -51,25 +45,36 @@ Deberías ver un contenedor llamado `pizzeria-postgres` en estado "Up".
 
 ### 3. Configurar y Levantar el Backend
 
-1. Navega al directorio del backend:
+1. Crear archivo .env que contenga:
+
+```bash
+PORT=3000
+DB_HOST=localhost
+DB_PORT=5432
+DB_USER=pizzeria_user
+DB_PASSWORD=pizzeria_pass
+DB_NAME=pizzeria
+```
+
+2. Navega al directorio del backend:
 
 ```bash
 cd ../backend
 ```
 
-2. Instala las dependencias:
+3. Instala las dependencias:
 
 ```bash
 npm install
 ```
 
-3. Compila el código TypeScript:
+4. Compila el código TypeScript:
 
 ```bash
 npm run build
 ```
 
-4. Inicia el servidor en modo desarrollo:
+5. Inicia el servidor en modo desarrollo:
 
 ```bash
 npm run dev
@@ -133,22 +138,6 @@ curl -X POST http://localhost:3000/api/orders \
 }'
 ```
 
-### 2. Obtener un Pedido por ID
-
-**Endpoint**: `GET /api/orders/:id`
-
-**Descripción**: Obtiene los detalles de un pedido específico.
-
-**Ejemplo con Postman**:
-1. Crea una nueva solicitud GET a `http://localhost:3000/api/orders/1` (reemplaza "1" con el ID obtenido en el paso anterior)
-2. Haz clic en "Send"
-3. Deberías recibir una respuesta con código 200 y los detalles del pedido
-
-**Ejemplo con curl**:
-```bash
-curl -X GET http://localhost:3000/api/orders/1
-```
-
 ### 3. Listar Todos los Pedidos
 
 **Endpoint**: `GET /api/orders`
@@ -172,22 +161,6 @@ curl -X GET http://localhost:3000/api/orders
 
 # Filtrar por estado
 curl -X GET http://localhost:3000/api/orders?status=pending
-```
-
-### 4. Cancelar un Pedido
-
-**Endpoint**: `POST /api/orders/:id/cancel`
-
-**Descripción**: Cancela un pedido existente (si no ha sido entregado).
-
-**Ejemplo con Postman**:
-1. Crea una nueva solicitud POST a `http://localhost:3000/api/orders/1/cancel` (reemplaza "1" con el ID del pedido que deseas cancelar)
-2. Haz clic en "Send"
-3. Deberías recibir una respuesta con código 200 y la confirmación de que el pedido fue cancelado
-
-**Ejemplo con curl**:
-```bash
-curl -X POST http://localhost:3000/api/orders/1/cancel
 ```
 
 ## Reglas de Negocio

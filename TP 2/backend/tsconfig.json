@@ -1,4 +1,5 @@
 {
+
   "compilerOptions": {
     "target": "es2016",
     "module": "commonjs",
@@ -8,8 +9,10 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "types": ["node"]
+    "types": [
+      "jest",
+      "node"]
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "jest.config.ts"],
   "exclude": ["node_modules"]
 }
