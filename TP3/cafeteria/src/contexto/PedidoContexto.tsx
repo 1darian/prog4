@@ -5,7 +5,9 @@ interface PedidoContextoType {
     items: ItemPedido[];
     total: number;
     agregarProducto: (producto: Producto) => void;
+    eliminarProducto: (idProducto: string) => void; 
 }
+
 
 const PedidoContexto = createContext<PedidoContextoType | undefined>(undefined);
 
@@ -37,14 +39,33 @@ export const PedidoProvider: React.FC<PedidoProviderProps> = ({ children }) => {
         });
     };
 
+    const eliminarProducto = (idProducto: string) => {
+        setItems(prevItems => {
+            const itemExistente = prevItems.find(item => item.id === idProducto);
+
+            if (!itemExistente) {
+                return prevItems;
+            }
+
+            if (itemExistente.cantidad > 1) {
+                return prevItems.map(item =>
+                    item.id === idProducto ? { ...item, cantidad: item.cantidad - 1 } : item
+                );
+            } else {
+                return prevItems.filter(item => item.id !== idProducto);
+            }
+        });
+    };
+
     const total = useMemo(() => {
         return items.reduce((sum, item) => sum + item.precio * item.cantidad, 0);
     }, [items]);
 
-    const contextValue = {
+    const contextValue: PedidoContextoType = {
         items,
         total,
         agregarProducto,
+        eliminarProducto, 
     };
 
     return (

@@ -2,7 +2,7 @@ import React from 'react';
 import { usarPedido } from '../../contexto/PedidoContexto';
 
 export const ResumenPedido: React.FC = () => {
-    const { items, total } = usarPedido();
+    const { items, total, eliminarProducto } = usarPedido(); 
 
     return (
         <aside aria-label="Resumen del Pedido">
@@ -14,7 +14,13 @@ export const ResumenPedido: React.FC = () => {
                     items.map(item => (
                         <li key={item.id} role="listitem">
                             {item.cantidad} x {item.nombre} - ${ (item.precio * item.cantidad).toFixed(2) }
-                            <button aria-label={`Eliminar ${item.nombre}`}>Eliminar</button>
+                            
+                            <button 
+                                onClick={() => eliminarProducto(item.id)}
+                                aria-label={`Eliminar ${item.nombre}`}
+                            >
+                                Eliminar
+                            </button>
                         </li>
                     ))
                 )}
