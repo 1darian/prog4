@@ -1,36 +1,25 @@
-
-import React, { useState, useEffect } from 'react';
-import { Producto } from '../../tipos/producto'; 
+import React from 'react';
+import { usarMenu } from '../../hooks/usarMenu'; // Usamos el nuevo hook
+import { ItemMenu } from '../ItemMenu/ItemMenu'; // Usamos el nuevo componente
 
 export const Menu: React.FC = () => {
+    const { productos, cargando, error } = usarMenu();
 
-    const [productos, setProductos] = useState<Producto[]>([]);
-    const [cargando, setCargando] = useState(true);
-
-    useEffect(() => {
-        const obtenerMenu = async () => {
-            try {
-                const respuesta = await fetch('/api/menu'); 
-                
-                if (!respuesta.ok) {
-                    throw new Error('Error al cargar el menú');
-                }
-                
-                const datos: Producto[] = await respuesta.json();
-                setProductos(datos);
-            } catch (error) {
-                console.error("Fallo la carga del menú", error);
-            } finally {
-                setCargando(false);
-            }
-        };
-
-        obtenerMenu();
-    }, []); 
-
+    // Función placeholder para la HU2 (Agregar)
+    const handleAgregar = () => {
+        console.log("Se intentó agregar un producto.");
+    };
 
     if (cargando) {
         return <div>Cargando menú...</div>; 
+    }
+
+    if (error) {
+        return <div role="alert" style={{ color: 'red' }}>{error}</div>;
+    }
+    
+    if (productos.length === 0) {
+        return <div>No hay productos disponibles.</div>;
     }
 
     return (
@@ -38,11 +27,11 @@ export const Menu: React.FC = () => {
             <h2>Productos Disponibles</h2>
             <ul role="list">
                 {productos.map((producto) => (
-                    <li key={producto.id} role="listitem"> 
-                        <h3>{producto.nombre}</h3>
-                        <p>Precio: ${producto.precio.toFixed(2)}</p>
-                        <button>Agregar</button> 
-                    </li>
+                    <ItemMenu 
+                        key={producto.id} 
+                        producto={producto} 
+                        onAgregar={handleAgregar} 
+                    />
                 ))}
             </ul>
         </section>
