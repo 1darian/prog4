@@ -1,4 +1,4 @@
-import { Producto } from "../tipos/producto";
+import type { Producto } from "../tipos/producto";
 
 export const mockProductos: Producto[] = [
   { id: "1", nombre: "Espresso", precio: 2.5, tipo: "Bebida" },
