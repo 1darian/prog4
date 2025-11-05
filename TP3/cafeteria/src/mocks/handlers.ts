@@ -1,6 +1,5 @@
 import { http, HttpResponse } from "msw";
 import { mockProductos } from "./data";
-import { ProductSchema } from "../tipos/producto";
 
 export const handlers = [
   http.get("/api/menu", () => {
