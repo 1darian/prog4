@@ -1,11 +1,11 @@
 
 import { http, HttpResponse } from 'msw';
-import { mockProducts } from './data';
+import { mockProductos } from './data';
 import { ProductSchema } from '../tipos/producto';
 
 export const handlers = [
   http.get('/api/menu', () => {
-    return HttpResponse.json(mockProducts, { status: 200 });
+    return HttpResponse.json(mockProductos, { status: 200 });
   }),
 
 
