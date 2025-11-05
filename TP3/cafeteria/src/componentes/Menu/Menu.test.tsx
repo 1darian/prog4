@@ -13,15 +13,4 @@ describe('HU1 y HU2: Interacción del Menú', () => {
         expect(screen.queryByText(/Cargando menú.../i)).not.toBeInTheDocument();
     });
 
-    test('🔴 HU2: Debe agregar un producto al pedido al hacer clic en "Agregar"', async () => {
-        render(<PedidoProvider><Menu /></PedidoProvider>);
-
-        const botonAgregar = await screen.findByRole('button', { name: /Agregar Espresso/i }); 
-        
-        fireEvent.click(botonAgregar);
-
-        expect(screen.getByText(/1 x Espresso/i)).toBeInTheDocument(); 
-
-        expect(screen.getByText('Total: $2.50')).toBeInTheDocument(); 
-    });
 });

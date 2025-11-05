@@ -1,9 +1,11 @@
 import React from 'react';
-import { usarMenu } from '../../hooks/usarMenu'; // Usamos el nuevo hook
-import { ItemMenu } from '../ItemMenu/ItemMenu'; // Usamos el nuevo componente
+import { usarMenu } from '../../hooks/usarMenu'; 
+import { ItemMenu } from '../ItemMenu/ItemMenu'; 
+import { usarPedido } from '../../contexto/PedidoContexto';
 
 export const Menu: React.FC = () => {
     const { productos, cargando, error } = usarMenu();
+    const { agregarProducto } = usarPedido();
 
     // Función placeholder para la HU2 (Agregar)
     const handleAgregar = () => {
@@ -30,7 +32,7 @@ export const Menu: React.FC = () => {
                     <ItemMenu 
                         key={producto.id} 
                         producto={producto} 
-                        onAgregar={handleAgregar} 
+                        onAgregar={agregarProducto}
                     />
                 ))}
             </ul>
