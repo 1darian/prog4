@@ -24,6 +24,28 @@ describe('Flujo de Pedido Completo (HU2 y HU3)', () => {
         expect(screen.getByText('Total: $7.00')).toBeInTheDocument(); 
     });
 
+    test('🔴 HU4: Debe eliminar un ítem del pedido y actualizar el total', async () => {
+        render(<App />);
+
+        const botonAgregarEspresso = await screen.findByRole('button', { name: /Agregar Espresso/i }); 
+        const botonAgregarCroissant = screen.getByRole('button', { name: /Agregar Croissant/i }); 
+        
+        fireEvent.click(botonAgregarEspresso); // 1er Espresso
+        fireEvent.click(botonAgregarCroissant); // 1er Croissant
+        fireEvent.click(botonAgregarEspresso); // 2do Espresso
+
+        expect(screen.getByText('Total: $7.00')).toBeInTheDocument();
+        
+        const botonEliminarEspresso = screen.getByRole('button', { name: /Eliminar Espresso/i }); 
+        
+        fireEvent.click(botonEliminarEspresso);
+        
+        expect(screen.getByText(/1 x Espresso/i)).toBeInTheDocument(); 
+
+        expect(screen.getByText('Total: $4.50')).toBeInTheDocument(); 
+
+        expect(screen.getByText(/1 x Croissant/i)).toBeInTheDocument();
+    });
 
 
 });
