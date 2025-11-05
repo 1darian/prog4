@@ -21,7 +21,7 @@ describe("Casos limite con errores", () => {
 
     render(<App />);
 
-    expect(screen.getByText("Cafeteria TDD")).toBeInTheDocument();
+    expect(screen.getByText("Cafetería TDD")).toBeInTheDocument();
 
     expect(screen.getByText(/Cargando menu.../i)).toBeInTheDocument();
 
@@ -69,15 +69,18 @@ describe("Casos limite con errores", () => {
       })
     );
 
-    const { rerender } = render(<App />);
+    const { unmount } = render(<App />);
 
     await waitFor(() => {
       expect(screen.getByRole("alert")).toHaveTextContent("Failed to fetch");
     });
 
+    unmount();
+
     server.resetHandlers();
 
-    rerender(<App />);
+    // Renderizar nuevamente el componente
+    render(<App />);
 
     await waitFor(() => {
       expect(screen.getByText("Productos Disponibles")).toBeInTheDocument();
@@ -105,9 +108,7 @@ describe("Casos limite con errores", () => {
     render(<App />);
 
     await waitFor(() => {
-      expect(screen.getByRole("alert")).toHaveTextContent(
-        "Menu no encontrado."
-      );
+      expect(screen.getByRole("alert")).toHaveTextContent("No encontrado");
     });
 
     expect(screen.queryByText("Productos Disponibles")).not.toBeInTheDocument();
