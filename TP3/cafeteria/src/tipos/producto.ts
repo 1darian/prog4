@@ -14,4 +14,11 @@ export interface OrderItem {
     name: string;
     price: number;
     quantity: number;
+};
+
+export interface ItemPedido {
+    id: string;
+    nombre: string;
+    precio: number;
+    cantidad: number;
 }
