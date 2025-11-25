@@ -1,7 +1,11 @@
-const attempts = require('./attemptsStore');
-
 const bruteForceDelay = (req, res, next) => {
-  const ip = req.ip;
+  const ip = req.ip || '::1';
+
+  if (!req.app.locals.attemptsMap) {
+    req.app.locals.attemptsMap = new Map();
+  }
+
+  const attempts = req.app.locals.attemptsMap;
 
   if (!attempts.has(ip)) {
     attempts.set(ip, { fails: 0 });
@@ -10,9 +14,9 @@ const bruteForceDelay = (req, res, next) => {
   const data = attempts.get(ip);
   data.fails++;
 
-  // Delay despues del 2do intento
-  if (data.fails > 2) {
-    return setTimeout(() => next(), 2000);
+  if (data.fails > 1) {
+    const delay = 600;
+    return setTimeout(() => next(), delay);
   }
 
   next();

@@ -1,10 +1,10 @@
-const attempts = require('./attemptsStore');
-
 const bruteForceCaptcha = (req, res, next) => {
-  const ip = req.ip;
+  const ip = req.ip || '::1';
+
+  const attempts = req.app.locals.attemptsMap || new Map();
   const data = attempts.get(ip);
 
-  if (data && data.fails > 3) {
+  if (data && data.fails >= 3) {
     return res.status(400).json({
       error: 'captcha requerido'
     });
