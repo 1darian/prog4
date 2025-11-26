@@ -34,7 +34,9 @@ function runNextTest() {
   console.log('─'.repeat(50));
 
   const testPath = path.join(__dirname, 'security', testFile);
-  const jest = spawn('npx', ['jest', testPath, '--verbose'], {
+  const jestCli = path.join(process.cwd(), 'node_modules', 'jest', 'bin', 'jest.js');
+  const relativeTestPath = path.relative(process.cwd(), testPath).replace(/\\/g, '/');
+  const jest = spawn(process.execPath, [jestCli, relativeTestPath, '--verbose'], {
     stdio: 'inherit'
   });
 

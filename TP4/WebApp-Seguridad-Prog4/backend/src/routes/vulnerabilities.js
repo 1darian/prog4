@@ -6,7 +6,7 @@ const csrfProtection = require('../middleware/csrfProtection');
 const originCheck = require('../middleware/originCheck');
 
 // Command Injection
-router.post('/ping', csrfProtection, vulnerabilityController.ping);
+router.post('/ping', vulnerabilityController.ping);
 
 // CSRF - Transferencia
 router.post('/transfer', originCheck, csrfProtection, vulnerabilityController.transfer);
