@@ -20,16 +20,15 @@ app.get('/', (req, res) => {
   res.send('API de Pizzería funcionando correctamente');
 });
 
-// Iniciar servidor
-app.listen(PORT, async () => {
-  console.log(`Servidor corriendo en el puerto ${PORT}`);
-  
-  // Inicializar la base de datos
-  try {
-    await initializeDatabase();
-  } catch (error) {
-    console.error('Error al inicializar la base de datos:', error);
-  }
-});
+if (process.env.NODE_ENV !== 'test' && !process.env.JEST_WORKER_ID) {
+  app.listen(PORT, async () => {
+    console.log(`Servidor corriendo en el puerto ${PORT}`);
+    try {
+      await initializeDatabase();
+    } catch (error) {
+      console.error('Error al inicializar la base de datos:', error);
+    }
+  });
+}
 
 export default app;
