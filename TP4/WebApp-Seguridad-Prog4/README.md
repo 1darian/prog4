@@ -1,3 +1,6 @@
+# Integrantes
+Agustín Loos, Darian Savenia,  Juan Bautista Tordini y Juan Ignacio Martínez Heguy
+
 # Aplicación Vulnerable - Práctica de Seguridad Web
 
 Esta aplicación ha sido diseñada específicamente para enseñar sobre vulnerabilidades comunes en aplicaciones web. **NO DEBE SER USADA EN PRODUCCIÓN**.
